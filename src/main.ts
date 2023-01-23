@@ -1,8 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import './registerServiceWorker'
 import router from './router'
-import { createPinia } from 'pinia'
-import ToggleSwitch from 'vuejs-toggle-switch'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import store from './store'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faSearch)
 
-createApp(App).use(router).use(createPinia()).mount('#app')
+createApp(App).use(router).use(store).component('font-awesome-icon', FontAwesomeIcon).mount('#app')
