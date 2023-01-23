@@ -226,7 +226,7 @@ export default {
   name: 'MainHeaderView',
   setup () {
     const store = useStore()
-
+    console.log(process.env)
     const byGengre = ref(1)
     const byTitle = ref(0)
     const title = ref('')

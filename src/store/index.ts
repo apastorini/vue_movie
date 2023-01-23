@@ -248,8 +248,9 @@ export default createStore({
   },
   mutations: {
     async setAllVideosByTitle (state, cond) {
+      console.log(process.env.VUE_APP_APIKEY)
       try {
-        const url = 'https://www.omdbapi.com/?apikey=97f54ad&plot=full&s=' + cond.title + '&page=' + state.currentpage
+        const url = process.env.VUE_APP_REQUEST_URL + '/?apikey=' + process.env.VUE_APP_APIKEY + '&plot=full&s=' + cond.title + '&page=' + state.currentpage
         const response = await fetch(url)
         const result = await response.json()
         if (result.Response === 'True') {
@@ -258,7 +259,7 @@ export default createStore({
           state.currentpage = cond.page
           result.Search.forEach(async (item: any, index: number) => {
             try {
-              const tempUrl = 'https://www.omdbapi.com/?apikey=97f54ad&i=' + item.imdbID
+              const tempUrl = process.env.VUE_APP_REQUEST_URL + '/?apikey=' + process.env.VUE_APP_APIKEY + '&i=' + item.imdbID
               const video = await fetch(tempUrl)
               state.products[index] = await video.json()
             } catch (err) {
