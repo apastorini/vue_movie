@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="top">
-      <a href="/"><span class="logo"><b>netflix</b>roulette</span></a>
+      <router-link to="/"><span class="logo"><b>netflix</b>roulette</span></router-link>
       <div class="search-form">
         <h1>FIND YOUR MOVIE</h1>
-        <input type="text" v-model="title" placeholder="Search" id="searchStr" autocomplete="true" />
+        <input type="text" v-model="title" placeholder="Search" id="searchStr" autocomplete="true" v-on:keyup="getData" />
         <button id="submitButton" @click="getData">Search</button>
         <div class="switch-group">
           <span>SEARCH BY </span>
@@ -219,63 +219,40 @@
     }
   }
 </style>
-<script lang='ts'>
+<script lang='ts' setup>
 import { useStore } from 'vuex'
 import { ref } from 'vue'
-export default {
-  name: 'MainHeaderView',
-  setup () {
-    const store = useStore()
-    console.log(process.env)
-    const byGengre = ref(1)
-    const byTitle = ref(0)
-    const title = ref('')
-    const page = 1
-    const byRating = ref(1)
-    const byRelease = ref(0)
+const store = useStore()
+const byGengre = ref(1)
+const byTitle = ref(0)
+const title = ref('')
+const byRating = ref(1)
+const byRelease = ref(0)
 
-    function viewByTitle () {
-      byGengre.value = 0
-      byTitle.value = 1
-    }
+function viewByTitle () {
+  byGengre.value = 0
+  byTitle.value = 1
+}
 
-    function viewByGengre () {
-      byGengre.value = 1
-      byTitle.value = 0
-    }
+function viewByGengre () {
+  byGengre.value = 1
+  byTitle.value = 0
+}
 
-    function viewByRating () {
-      byRating.value = 1
-      byRelease.value = 0
-      store.commit('setSortType', 0)
-    }
+function viewByRating () {
+  byRating.value = 1
+  byRelease.value = 0
+  store.commit('setSortType', 0)
+}
 
-    function viewByRelease () {
-      byRating.value = 0
-      byRelease.value = 1
-      store.commit('setSortType', 1)
-    }
+function viewByRelease () {
+  byRating.value = 0
+  byRelease.value = 1
+  store.commit('setSortType', 1)
+}
 
-    async function getData () {
-      const cond = {
-        title: title.value,
-        pagenumber: page
-      }
-      store.commit('setAllVideosByTitle', cond)
-    }
-
-    return {
-      byRating,
-      byRelease,
-      title,
-      byTitle,
-      byGengre,
-      viewByTitle,
-      viewByGengre,
-      getData,
-      viewByRating,
-      viewByRelease
-    }
-  }
+function getData () {
+  store.commit('setKeyword', title.value.trim())
+  store.dispatch('getVideosByTitle')
 }
 </script>

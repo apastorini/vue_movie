@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top">
-      <a href="/"><span class="logo"><b>netflix</b>roulette</span></a>
+      <router-link to="/"><span class="logo"><b>netflix</b>roulette</span></router-link>
       <font-awesome-icon icon="search" />
       <div class="detail">
         <div class="inlineblock left-div">
@@ -127,23 +127,15 @@ svg {
     }
 }
 </style>
-<script lang="ts">
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { onMounted, ref } from 'vue'
+<script lang="ts" setup>
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
-export default {
-  setup () {
-    const route = useRoute()
-    const video = ref({ Runtime: '', Poster: '', Year: '', Released: '', Title: '', Genre: '', imdbRating: '', Plot: '' })
-    onMounted(async () => {
-      const url = 'https://www.omdbapi.com/?apikey=97f54ad&i=' + route.params.imdbid
-      const response = await fetch(url)
-      video.value = await response.json()
-    })
-    return {
-      video
-    }
-  }
-}
+const route = useRoute()
+const video = ref({ Runtime: '', Poster: '', Year: '', Released: '', Title: '', Genre: '', imdbRating: '', Plot: '' })
+watchEffect(async () => {
+  const url = process.env.VUE_APP_REQUEST_URL + '/?apikey=' + process.env.VUE_APP_APIKEY + '&i=' + route.params.imdbid
+  const response = await fetch(url)
+  video.value = await response.json()
+})
 </script>

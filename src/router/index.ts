@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import AboutView from '../views/AboutView.vue'
-import DetailView from '../views/DetailView.vue'
-import NotFoundView from '../views/NotFoundView.vue'
+
+const HomeView = () => import('../views/HomeView.vue')
+const AboutView = () => import('../views/AboutView.vue')
+const DetailView = () => import('../views/DetailView.vue')
+const NotFoundView = () => import('../views/NotFoundView.vue')
 
 const routes: Array<RouteRecordRaw> = [
   {

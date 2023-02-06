@@ -1,13 +1,14 @@
 <template>
-  <div class="card">
-    <img :src="product.Poster" />
-    <div class="detail">
-      <span class="title">{{ product.Title }}</span>
-      <span class="year">{{ product.Year }}</span>
+  <router-link :to="'/detail/'+product.imdbID">
+    <div class="card">
+      <img :src="product.Poster" />
+      <div class="detail">
+        <span class="title">{{ product.Title }}</span>
+        <span class="year">{{ product.Year }}</span>
+      </div>
+      <div class="clearfix"></div>
     </div>
-    <div class="clearfix"></div>
-    <a :href="'/detail/'+product.imdbID">{{ product.Genre }}</a>
-  </div>
+  </router-link>
 </template>
 <style lang="scss">
   .card {

@@ -1,8 +1,9 @@
 <template>
   <DetailHeaderView />
   <div class="video-card-panel">
-    <div class="card-group">
-      <VideoCard v-for='product in products' :product='product' :key='product' />
+    <h2 v-if='!totalResult'>Movie not found!</h2>
+    <div v-else class='card-group'>
+      <VideoCard v-for='product in products' :product='product' :key='product.Title' />
     </div>
   </div>
   <MainFooterView />
@@ -27,28 +28,18 @@
     text-align: center;
   }
 </style>
-<script lang="ts">
+<script lang="ts" setup>
 import DetailHeaderView from '@/components/DetailHeaderView.vue'
 import VideoCard from '@/components/VideoCard.vue'
 import MainFooterView from '@/components/MainFooterView.vue'
 import { useStore } from 'vuex'
 import { computed } from 'vue'
 
-export default {
-  name: 'DetailView',
-  components: {
-    DetailHeaderView,
-    VideoCard,
-    MainFooterView
-  },
-  setup () {
-    const store = useStore()
-    const products = computed(function () {
-      return store.state.products
-    })
-    return {
-      products
-    }
-  }
-}
+const store = useStore()
+const products = computed(function () {
+  return store.state.products
+})
+const totalResult = computed(function () {
+  return store.state.totalResult
+})
 </script>
