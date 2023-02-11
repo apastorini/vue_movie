@@ -8,11 +8,20 @@
 
 <script>
 import './page.css';
-import MyHeader from './MainHeader.vue';
-import VideoPanel from './VideoPanel.vue';
-import MyFooter from './Footer.vue';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
+
+
+import { defineAsyncComponent } from 'vue'
+const MyHeader = defineAsyncComponent(() => 
+  import('./MainHeader.vue')
+)
+const VideoPanel = defineAsyncComponent(() => 
+  import('./VideoPanel.vue')
+)
+const MyFooter = defineAsyncComponent(() => 
+  import('./Footer.vue')
+)
 
 export default {
   name: 'my-page',

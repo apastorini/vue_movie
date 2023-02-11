@@ -8,12 +8,21 @@
 
 <script>
 import './page.css';
-import DetailHeader from './DetailHeader.vue';
-import VideoPanel from './VideoPanel.vue';
-import MyFooter from './Footer.vue';
 import { useStore } from 'vuex';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
+
+
+import { defineAsyncComponent } from 'vue'
+const DetailHeader = defineAsyncComponent(() => 
+  import('./DetailHeader.vue')
+)
+const VideoPanel = defineAsyncComponent(() => 
+  import('./VideoPanel.vue')
+)
+const MyFooter = defineAsyncComponent(() => 
+  import('./Footer.vue')
+)
 
 export default {
   name: 'detail-page',

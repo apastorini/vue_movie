@@ -26,12 +26,24 @@
 
 <script>
 import './header.css';
-import MyButton from './Button.vue';
-import BackgroundImage from './assets/abstract-background.jpg';
 import { reactive, computed } from 'vue';
-import SearchBox from './SearchBox.vue';
-import SwitchButton from './SwitchButton.vue';
 import { useStore } from 'vuex';
+
+
+import { defineAsyncComponent } from 'vue'
+const MyButton = defineAsyncComponent(() => 
+  import('./Button.vue')
+)
+const SearchBox = defineAsyncComponent(() => 
+  import('./SearchBox.vue')
+)
+const SwitchButton = defineAsyncComponent(() => 
+  import('./SwitchButton.vue')
+)
+const BackgroundImage = defineAsyncComponent(() => 
+  import('./assets/abstract-background.jpg')
+)
+
 
 export default {
   name: 'my-header',

@@ -10,14 +10,17 @@
 
 <script>
 import './switch.css';
-import SwitchButton from './SwitchButton.vue';
 import { reactive, computed } from 'vue';
-import MyButton from './Button.vue';
 import { useStore } from 'vuex';
+
+import { defineAsyncComponent } from 'vue'
+const MyButton = defineAsyncComponent(() => 
+  import('./Button.vue')
+)
 
 export default {
   name: 'switch-button',
-  components: { SwitchButton, MyButton },
+  components: { MyButton },
   props: {
     switchtype: {
       type: String,

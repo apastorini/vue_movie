@@ -7,7 +7,10 @@
 
 <script lang="ts">
 import './videopanel.css';
-import VideoCard from './VideoCard.vue';
+import { defineAsyncComponent } from 'vue'
+const VideoCard = defineAsyncComponent(() => 
+  import('./VideoCard.vue')
+)
 import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 
