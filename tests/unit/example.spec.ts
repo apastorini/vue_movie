@@ -10,14 +10,9 @@ describe('HelloWorld.vue', () => {
     })
     expect(wrapper.text()).toMatch(msg)
   })
-  it('Expect 1 + 1 = 2', () => {
-    // expect the result
-    // of 1+1 to be 2
-    expect(1 + 1).toBe(2)
-  })
 })
 
-describe('HomeViewVue.vue', () => {
+describe('HomeView.vue', () => {
   it('Expect setMessage(\'Incorrect IMDb ID.\') is No movie data', () => {
     // commit mutation
     store.commit('setMessage', 'Incorrect IMDb ID.')

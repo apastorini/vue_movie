@@ -1,60 +1,46 @@
 <template>
-  <MainHeaderView />
-  <div class='video-card-panel'>
-    <h2 v-if='!totalResult'>{{message}}</h2>
-    <div v-else class='card-group'>
-      <VideoCard v-for='product in products' :product='product' :key='product.Title' />
-    </div>
-  </div>
-  <MainFooterView />
+  <Suspense>
+    <template #default>
+      <my-page />
+    </template>
+    <template #fallback>
+      <div className="about">
+        <Loading className="loading-div" />
+      </div>
+    </template> 
+  </Suspense>
 </template>
-<style>
-h2 {
-  color: #fff !important;
-}
 
-.logo {
-  font-weight: bold;
-  color: #f65261;
-}
+<script lang="ts">
+import { defineAsyncComponent } from 'vue'
+import Loading from '../components/Loading.vue';
+const MyPage = defineAsyncComponent(() => 
+  import('@/stories/Page.vue')
+)
 
-body {
-  background-color: #555555;
+export default {
+  name: 'HomeView',
+  components: { MyPage, Loading }  
 }
-
-.video-card-panel {
-  background-color: #232323;
-  padding: 20px 80px;
+</script>
+<style scoped>
+.about {
+  background-color: black;
+  height: 100vh;
 }
-
-.card-group {
-  padding: 10px;
-  text-align: left !important;
+.loading-div {  
+  text-align: center;
+  margin: 0 auto;
+  justify-content: center;
+  vertical-align: middle;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.v-ring {
+  margin: 0 auto;
+  text-align: center;
 }
 </style>
-<script lang='ts' setup>
-import MainHeaderView from '@/components/MainHeaderView.vue' // @ is an alias to /src
-import VideoCard from '@/components/VideoCard.vue'
-import MainFooterView from '@/components/MainFooterView.vue'
-import { useStore } from 'vuex'
-import { computed } from 'vue'
-const store = useStore()
-const products = computed(function () {
-  if (store.state.byRelease === 1) {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    return store.state.products.sort((a: { Year: string }, b: { Year: string }) => (a.Year > b.Year) ? -1 : 1)
-  } else if (store.state.byRating === 1) {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    return store.state.products.sort((a: { imdbRating: string }, b: { imdbRating: string }) => (a.imdbRating > b.imdbRating) ? -1 : 1)
-  } else {
-    // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-    return store.state.products
-  }
-})
-const totalResult = computed(function () {
-  return store.state.totalResult
-})
-const message = computed(function () {
-  return store.state.message
-})
-</script>

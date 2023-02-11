@@ -74,8 +74,8 @@ export default createStore({
   },
   actions: {
     async getVideosByTitle ({ commit }) {
+      commit('setResource', [])
       if (this.state.keyword === '') {
-        commit('setResource', [])
         commit('setMessage', 'No movie data')
         return
       }
@@ -90,6 +90,7 @@ export default createStore({
           commit('setMessage', result.Error)
         }
       } catch (error) {
+        commit('setResource', [])
         console.log(error)
       }
     },
@@ -99,5 +100,6 @@ export default createStore({
       commit('setCurrentMovie', await response.json())
     }
   },
-  modules: {}
+  modules: {
+  }
 })
