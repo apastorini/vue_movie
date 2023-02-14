@@ -7,14 +7,14 @@
 
 <script lang="ts">
 import './videopanel.css';
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, defineComponent } from 'vue'
 const VideoCard = defineAsyncComponent(() => 
   import('./VideoCard.vue')
 )
 import { reactive, computed } from 'vue';
 import { useStore } from 'vuex';
 
-export default {
+export default defineComponent({
   name: 'video-panel',
   components: { VideoCard },
 
@@ -36,5 +36,5 @@ export default {
     return { message }
   },
 
-};
+});
 </script>

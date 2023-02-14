@@ -135,4 +135,22 @@ describe('HomeView.vue', () => {
     expect(store.state.byTitle).toBe(1)
     expect(store.state.byGengre).toBe(0)
   })
+  it('Expect setImdbid(\'tt3766394\') is imdbid = tt3766394', () => {
+    // commit mutation
+    store.commit('setImdbid', 'tt3766394')
+    // test its effect
+    expect(store.state.imdbid).toBe('tt3766394')
+  })
+  it('Expect current movie title is \'Hello, My Name Is Doris\'', () => {
+    // commit mutation
+    store.commit('setCurrentMovie', {
+      Title: 'Hello, My Name Is Doris',
+      Year: '2015',
+      imdbID: 'tt3766394',
+      Type: 'movie',
+      Poster: 'https://m.media-amazon.com/images/M/MV5BMTg0NTM3MTI1MF5BMl5BanBnXkFtZTgwMTAzNTAzNzE@._V1_SX300.jpg'
+    })
+    // test its effect
+    expect(store.state.movie.Title).toBe('Hello, My Name Is Doris')
+  })
 })
